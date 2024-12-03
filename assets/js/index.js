@@ -37,13 +37,36 @@ const products = [
   },
 ];
 
-const list = document.querySelector("#list");
+const listContainer = document.querySelector("#list");
 const header = document.querySelector("#header");
 const search = document.querySelector("#search");
 
 function render(products) {
 
-  list.innerHTML = products;
+  let list = "";
+
+  if (products.length <= 0) {
+    list += `<div id="no-products"> Nenhum produto disponivel no momento... </div>`
+  } else {
+    products.forEach((product, index) => {
+      list +=
+        `
+          <div class="product">
+            <div class="product-image">
+              <img src="/assets/images/${product.poster}">
+            </div>
+            ${product.title} -  ${product.price} 
+            <a href="#"> 
+              <div class="product-button" data-id="${product.id}">
+                Remover
+              </div>
+            </a>
+          </div>
+        `
+    });
+  }
+
+  listContainer.innerHTML = list;
 
 }
 
