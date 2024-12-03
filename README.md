@@ -1,4 +1,4 @@
-# Carrinho de compras 
+# Lista de itens 
 
 ## Como rodar o projeto:
 
