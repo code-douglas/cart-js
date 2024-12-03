@@ -37,6 +37,12 @@ const products = [
   },
 ];
 
+const formatter = Intl.NumberFormat('pt-BR', {
+  style: 'currency',
+  currency: 'BRL',
+  maximumFractionDigits: 2,
+})
+
 const listContainer = document.querySelector("#list");
 const header = document.querySelector("#header");
 const search = document.querySelector("#search");
@@ -55,7 +61,7 @@ function render(products) {
             <div class="product-image">
               <img src="/assets/images/${product.poster}">
             </div>
-            ${product.title} -  ${product.price} 
+            ${product.title} -  ${formatter.format(product.price)} 
             <a href="#"> 
               <div class="product-button" data-id="${product.id}">
                 Remover
