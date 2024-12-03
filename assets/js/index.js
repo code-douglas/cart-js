@@ -70,10 +70,33 @@ function render(products) {
           </div>
         `
     });
-  }
+  };
 
   listContainer.innerHTML = list;
 
 }
+
+function removeProduct(productId) {
+  const index = products.findIndex(product => {
+    return +product.id === +productId;
+  });
+
+  if (index > -1) {
+    products.splice(index, 1);
+
+    render(products);
+  };
+
+}
+
+document.body.addEventListener("click", (event) => {
+  event.preventDefault();
+
+  const productId = event.target.getAttribute('data-id');
+  if (productId) {
+    removeProduct(productId);
+  }
+
+})
 
 render(products);
