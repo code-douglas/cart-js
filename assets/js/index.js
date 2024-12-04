@@ -81,7 +81,23 @@ const formatter = Intl.NumberFormat('pt-BR', {
 
 const listContainer = document.querySelector("#list");
 const header = document.querySelector("#header");
-const search = document.querySelector("#search");
+const search = document.querySelector("#searchInput");
+
+function searchInKeyUp(event) {
+  const searched = event.target.value;
+
+  const productsFound = productFilterInSearch(searched);
+
+  productsFound.length > 0 ? renderListAndHeader(productsFound) : listContainer.innerHTML = "Nenhum produto encontrado";
+
+}
+
+function productFilterInSearch(searched) {
+  return products.filter((product) => {
+    return product.title.toLowerCase().includes(searched.toLowerCase());
+
+  })
+}
 
 function renderListAndHeader(products) {
   render(products)
@@ -130,8 +146,16 @@ function removeProduct(productId) {
 
   if (index > -1) {
     products.splice(index, 1);
+    if (search.value !== '') {
+      const productFiltered = productFilterInSearch(search.value);
+      renderListAndHeader(productFiltered);
+      if (productFiltered.length == 0) {
+        search.value = '';
+      }
+      return;
+    }
 
-    renderListAndHeader(products)
+    renderListAndHeader(products);
   };
 
 }
@@ -145,5 +169,8 @@ document.body.addEventListener("click", (event) => {
   }
 
 })
+
+search.addEventListener('keyup', _.debounce(searchInKeyUp, 400));
+
 
 renderListAndHeader(products)
