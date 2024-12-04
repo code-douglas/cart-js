@@ -83,6 +83,17 @@ const listContainer = document.querySelector("#list");
 const header = document.querySelector("#header");
 const search = document.querySelector("#search");
 
+function renderListAndHeader(products) {
+  render(products)
+  renderHeader(products)
+}
+
+function renderHeader(products) {
+  const totalProducts = products.length;
+
+  header.innerHTML = totalProducts > 0 ? `O total de produtos disponiveis no momento é ${totalProducts}` : "Não há produtos disponiveis no momento"
+}
+
 function render(products) {
 
   let list = "";
@@ -120,7 +131,7 @@ function removeProduct(productId) {
   if (index > -1) {
     products.splice(index, 1);
 
-    render(products);
+    renderListAndHeader(products)
   };
 
 }
@@ -135,4 +146,4 @@ document.body.addEventListener("click", (event) => {
 
 })
 
-render(products);
+renderListAndHeader(products)
